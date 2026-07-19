@@ -3,6 +3,9 @@
 @theme {
   --color-soft-ivory: #EDE6D8;
   --color-dark-cocoa: #311B14;
+  
+  /* Mapping the custom font utility */
+  --font-brown-sugar: var(--font-brown-sugar), serif;
 }
 
 body {
