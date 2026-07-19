@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-// Update the source to point exactly to the copied woff2 file name
 const brownSugar = localFont({
   src: "./fonts/Brown-Sugar-Regular.woff2",
   variable: "--font-brown-sugar",
@@ -24,6 +24,7 @@ export default function RootLayout({
       <body>
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
