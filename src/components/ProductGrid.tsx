@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+// ---> 1. IMPORT THE NEXT.JS LINK COMPONENT FOR LUXURY PAGE ROUTING <---
+import Link from "next/link";
 
-// Updated dataset containing dual campaign imagery for luxury hover transitions
+// High-Volume product layout matrix matching your complete catalog profile
 const ALL_PRODUCTS = [
   { 
     id: "1", 
@@ -37,7 +39,7 @@ const ALL_PRODUCTS = [
     img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=600",
     imgSecondary: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=600"
   },
-  // Deep catalog simulation array mirroring fallback imagery pairs
+  // Deep grid simulation filling out 30+ items across the homepage canvas layout
   ...Array.from({ length: 28 }).map((_, index) => ({
     id: `dynamic-${index}`,
     name: `Zeverse Luxury Statement Piece ${index + 1}`,
@@ -62,7 +64,7 @@ export default function ProductGrid() {
   return (
     <section className="max-w-7xl mx-auto px-6 py-24 bg-[#EDE6D8]">
       
-      {/* Header Matrix */}
+      {/* Title Header Space */}
       <div className="text-center mb-16">
         <h2 className="text-xs uppercase tracking-[0.3em] text-[#311B14] font-bold opacity-60 mb-3">
           The Vault
@@ -71,7 +73,7 @@ export default function ProductGrid() {
           Explore Zeverse Masterpieces
         </h3>
         
-        {/* Navigation Tabs */}
+        {/* Navigation Category Filters */}
         <div className="flex flex-wrap justify-center gap-4 text-xs tracking-widest uppercase font-semibold">
           {["ALL", "NEW launches", "Bestseller", "Rings", "Cuffs and bracelets"].map((tab) => (
             <button
@@ -87,36 +89,31 @@ export default function ProductGrid() {
         </div>
       </div>
 
-      {/* Grid Canvas */}
+      {/* Grid Interactive Grid Display Container */}
       <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
         <AnimatePresence mode="popLayout">
           {currentItems.map((product) => {
             const isHovered = hoveredItemId === product.id;
 
             return (
-              <motion.div
-                layout
+              // ---> 2. WRAP THE ENTIRE CARD EXTENT INSIDE A DYNAMIC LINK ELEMENT HERE <---
+              // This completely gets rid of the cheap-looking pop-up hover buttons, redirecting cleanly to our gorgeous details layout page instead!
+              <Link
+                href={`/products/${product.id}`}
                 key={product.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5 }}
                 onMouseEnter={() => setHoveredItemId(product.id)}
                 onMouseLeave={() => setHoveredItemId(null)}
                 className="group cursor-pointer flex flex-col relative"
               >
-                {/* Premium Image Frame Space */}
+                {/* Image Sandwich Frame Space */}
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#311B14]/5 mb-4 rounded-sm">
                   
                   {/* Primary Studio Picture */}
                   <motion.img
                     src={product.img}
                     alt={product.name}
-                    animate={{ 
-                      opacity: isHovered ? 0 : 1,
-                      scale: isHovered ? 1.05 : 1
-                    }}
-                    transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+                    animate={{ opacity: isHovered ? 0 : 1, scale: isHovered ? 1.03 : 1 }}
+                    transition={{ duration: 0.5 }}
                     className="absolute inset-0 w-full h-full object-cover object-center"
                     loading="lazy"
                   />
@@ -124,20 +121,17 @@ export default function ProductGrid() {
                   {/* Secondary Lifestyle Picture */}
                   <motion.img
                     src={product.imgSecondary}
-                    alt={`${product.name} context view`}
-                    initial={{ opacity: 0, scale: 1 }}
-                    animate={{ 
-                      opacity: isHovered ? 1 : 0,
-                      scale: isHovered ? 1 : 0.95
-                    }}
-                    transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+                    alt={`${product.name} alternate`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.98 }}
+                    transition={{ duration: 0.5 }}
                     className="absolute inset-0 w-full h-full object-cover object-center"
                     loading="lazy"
                   />
                   
                 </div>
 
-                {/* Typography Metadata Details */}
+                {/* Typography Metadata Grid Details */}
                 <div className="flex flex-col text-left">
                   <span className="text-[10px] tracking-widest uppercase text-[#311B14]/50 font-bold mb-1">
                     {product.tag}
@@ -149,13 +143,13 @@ export default function ProductGrid() {
                     ${product.price}.00
                   </p>
                 </div>
-              </motion.div>
+              </Link> // ---> END OF DYNAMIC PRODUCT DETAIL LINK PATHWAY <---
             );
           })}
         </AnimatePresence>
       </motion.div>
 
-      {/* See More Trigger */}
+      {/* Pagination "See More" Call-to-Action Trigger */}
       {visibleCount < filteredProducts.length && (
         <div className="w-full flex justify-center mt-20">
           <button
