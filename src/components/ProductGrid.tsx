@@ -28,6 +28,7 @@ export default function ProductGrid() {
     async function fetchProducts() {
       try {
         setLoading(true);
+        // Explicitly fetch both image URLs from your Supabase table schema
         const { data, error } = await supabase
           .from("products")
           .select("id, name, price, collection, image_url, secondary_image_url, description");
@@ -43,15 +44,12 @@ export default function ProductGrid() {
     fetchProducts();
   }, []);
 
-  // Show all products sequentially for a royal, uncompromised showroom aesthetic
   const currentItems = products.slice(0, visibleCount);
 
   if (loading) {
     return (
       <div className="min-h-[400px] flex items-center justify-center bg-[#EDE6D8]">
-        <p className="text-xs uppercase tracking-widest text-[#311B14] opacity-60 animate-pulse">
-          Opening the Zeverse Vault...
-        </p>
+        <p className="text-xs uppercase tracking-widest text-[#311B14] opacity-60 animate-pulse">Loading Zeverse Vault...</p>
       </div>
     );
   }
@@ -59,17 +57,11 @@ export default function ProductGrid() {
   return (
     <section className="max-w-7xl mx-auto px-6 py-24 bg-[#EDE6D8]">
       
-      {/* Royal Minimalist Header Space */}
       <div className="text-center mb-20">
-        <h2 className="text-xs uppercase tracking-[0.4em] text-[#311B14] font-bold opacity-40 mb-3">
-          The Curation
-        </h2>
-        <h3 className="font-brown-sugar text-5xl md:text-6xl text-[#311B14] tracking-wide">
-          Masterpieces
-        </h3>
+        <h2 className="text-xs uppercase tracking-[0.4em] text-[#311B14] font-bold opacity-40 mb-3">The Curation</h2>
+        <h3 className="font-brown-sugar text-5xl md:text-6xl text-[#311B14] tracking-wide">Masterpieces</h3>
       </div>
 
-      {/* Clean Grid Display Container */}
       <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
         <AnimatePresence mode="popLayout">
           {currentItems.map((product) => {
@@ -84,8 +76,10 @@ export default function ProductGrid() {
                 onMouseLeave={() => setHoveredItemId(null)}
                 className="group cursor-pointer flex flex-col relative"
               >
-                {/* Image Frame */}
+                {/* 2-Image Dynamic Studio Frame Workspace */}
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#311B14]/5 mb-4 rounded-sm">
+                  
+                  {/* Primary Studio Picture */}
                   <motion.img
                     src={product.image_url}
                     alt={product.name}
@@ -98,10 +92,11 @@ export default function ProductGrid() {
                     loading="lazy"
                   />
 
+                  {/* Secondary Lifestyle Picture (Cross-dissolves in seamlessly) */}
                   {hasSecondaryImg && (
                     <motion.img
                       src={product.secondary_image_url}
-                      alt={`${product.name} secondary`}
+                      alt={`${product.name} lifestyle`}
                       initial={{ opacity: 0 }}
                       animate={{ 
                         opacity: isHovered ? 1 : 0, 
@@ -112,9 +107,10 @@ export default function ProductGrid() {
                       loading="lazy"
                     />
                   )}
+                  
                 </div>
 
-                {/* Typography Metadata & Dynamic Action */}
+                {/* Typography Metadata */}
                 <div className="flex flex-col text-left space-y-2">
                   <div>
                     <span className="text-[10px] tracking-widest uppercase text-[#311B14]/50 font-bold mb-1 block">
