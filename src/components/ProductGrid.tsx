@@ -7,7 +7,7 @@ import { useCart } from "@/utils/CartContext";
 import { supabase } from "@/utils/supabase";
 
 interface Product {
-  id: string; 
+  id: string;
   name: string;
   price: number;
   collection: string;
@@ -28,7 +28,6 @@ export default function ProductGrid() {
     async function fetchProducts() {
       try {
         setLoading(true);
-        // Explicitly fetch both image URLs from your Supabase table schema
         const { data, error } = await supabase
           .from("products")
           .select("id, name, price, collection, image_url, secondary_image_url, description");
@@ -36,7 +35,7 @@ export default function ProductGrid() {
         if (error) throw error;
         if (data) setProducts(data);
       } catch (err) {
-        console.error("Error connecting to database rows:", err);
+        console.error("Error linking portfolio rows:", err);
       } finally {
         setLoading(false);
       }
@@ -49,7 +48,7 @@ export default function ProductGrid() {
   if (loading) {
     return (
       <div className="min-h-[400px] flex items-center justify-center bg-[#EDE6D8]">
-        <p className="text-xs uppercase tracking-widest text-[#311B14] opacity-60 animate-pulse">Loading Zeverse Vault...</p>
+        <p className="text-xs uppercase tracking-widest text-[#311B14] opacity-60 animate-pulse">Opening Zeverse Showroom...</p>
       </div>
     );
   }
@@ -66,7 +65,12 @@ export default function ProductGrid() {
         <AnimatePresence mode="popLayout">
           {currentItems.map((product) => {
             const isHovered = hoveredItemId === product.id;
-            const hasSecondaryImg = !!product.secondary_image_url;
+            
+            // AUTOMATIC FALLBACK PROTECTION: If your database column is null/empty for a specific row,
+            // we use a premium replacement image URL so the hover effect NEVER breaks or turns blank!
+            const finalSecondaryImage = product.secondary_image_url && product.secondary_image_url.trim() !== ""
+              ? product.secondary_image_url
+              : "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600"; 
 
             return (
               <Link
@@ -76,41 +80,39 @@ export default function ProductGrid() {
                 onMouseLeave={() => setHoveredItemId(null)}
                 className="group cursor-pointer flex flex-col relative"
               >
-                {/* 2-Image Dynamic Studio Frame Workspace */}
+                {/* 2-Image Presentation Matrix Frame */}
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#311B14]/5 mb-4 rounded-sm">
                   
-                  {/* Primary Studio Picture */}
+                  {/* Primary Database Product Image */}
                   <motion.img
                     src={product.image_url}
                     alt={product.name}
                     animate={{ 
-                      opacity: isHovered && hasSecondaryImg ? 0 : 1, 
+                      opacity: isHovered ? 0 : 1, 
                       scale: isHovered ? 1.03 : 1 
                     }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
                     className="absolute inset-0 w-full h-full object-cover object-center"
                     loading="lazy"
                   />
 
-                  {/* Secondary Lifestyle Picture (Cross-dissolves in seamlessly) */}
-                  {hasSecondaryImg && (
-                    <motion.img
-                      src={product.secondary_image_url}
-                      alt={`${product.name} lifestyle`}
-                      initial={{ opacity: 0 }}
-                      animate={{ 
-                        opacity: isHovered ? 1 : 0, 
-                        scale: isHovered ? 1 : 0.98 
-                      }}
-                      transition={{ duration: 0.5 }}
-                      className="absolute inset-0 w-full h-full object-cover object-center"
-                      loading="lazy"
-                    />
-                  )}
+                  {/* Secondary Hover Image (Guaranteed to render smoothly via fallback) */}
+                  <motion.img
+                    src={finalSecondaryImage}
+                    alt={`${product.name} editorial look`}
+                    initial={{ opacity: 0 }}
+                    animate={{ 
+                      opacity: isHovered ? 1 : 0, 
+                      scale: isHovered ? 1 : 0.98 
+                    }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                    loading="lazy"
+                  />
                   
                 </div>
 
-                {/* Typography Metadata */}
+                {/* Metadata Stack & Dynamic Drawer Interceptor */}
                 <div className="flex flex-col text-left space-y-2">
                   <div>
                     <span className="text-[10px] tracking-widest uppercase text-[#311B14]/50 font-bold mb-1 block">

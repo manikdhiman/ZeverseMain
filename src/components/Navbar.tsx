@@ -5,16 +5,18 @@ import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { useCart } from "@/utils/CartContext";
 
-// The full multi-category listing brought back for high-end curation mapping
+// Complete collection matrix directly from your high-end design reference
 const CATEGORIES_MATRIX = [
-  { name: "New Arrivals", path: "/collections/new-launches" },
-  { name: "Best Seller", path: "/collections/bestseller" },
+  { name: "New Arrivals", path: "/collections/new-arrivals" },
+  { name: "Best Seller", path: "/collections/best-seller" },
   { name: "Fine Silver", path: "/collections/fine-silver" },
-  { name: "9KT Fine Gold", path: "/collections/9kt-fine-gold" },
-  { name: "Earrings", path: "/collections/earrings" },
-  { name: "Heritage Jewellery", path: "/collections/heritage-jewellery" },
-  { name: "Cuffs & Bracelets", path: "/collections/cuffs-and-bracelets" },
-  { name: "Rings", path: "/collections/rings" }
+  { name: "9KT Fine Gold", path: "/collections/9kt-gold", badge: "Luxe", badgeColor: "bg-[#D4AF37]" },
+  { name: "Emily In Paris", path: "/collections/emily-in-paris", badge: "à la mode", badgeColor: "bg-blue-500" },
+  { name: "Shraddha's Favourite", path: "/collections/shraddhas-favourite" },
+  { name: "Demifine ® Jewellery", path: "/collections/demifine" },
+  { name: "Gifting", path: "/collections/gifting" },
+  { name: "Women's Edit", path: "/collections/women" },
+  { name: "Men's Curation", path: "/collections/men" }
 ];
 
 export default function Navbar() {
@@ -25,9 +27,7 @@ export default function Navbar() {
   const cartCount = cart.reduce((count, item) => count + item.quantity, 0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -36,19 +36,17 @@ export default function Navbar() {
     <>
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled || menuOpen
-            ? "bg-[#311B14] text-[#EDE6D8] shadow-lg py-4" 
-            : "bg-transparent text-[#311B14] py-6"
+          scrolled || menuOpen ? "bg-[#311B14] text-[#EDE6D8] shadow-lg py-4" : "bg-transparent text-[#311B14] py-6"
         }`}
         onMouseLeave={() => setMenuOpen(false)}
       >
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-3 items-center">
           
-          {/* Left Navigation Matrix */}
+          {/* Left Navigation Matrix Trigger */}
           <div className="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-widest uppercase">
             <button 
               onMouseEnter={() => setMenuOpen(true)}
-              className="hover:opacity-60 transition-opacity cursor-pointer uppercase tracking-widest outline-none bg-transparent border-none font-bold text-[#EDE6D8]/90"
+              className="hover:opacity-60 transition-opacity cursor-pointer uppercase tracking-widest outline-none bg-transparent border-none font-bold"
             >
               Collections
             </button>
@@ -58,11 +56,7 @@ export default function Navbar() {
 
           {/* Center Logo */}
           <div className="flex justify-center text-center">
-            <Link 
-              href="/" 
-              onMouseEnter={() => setMenuOpen(false)}
-              className="font-brown-sugar text-4xl md:text-5xl tracking-wide normal-case select-none"
-            >
+            <Link href="/" onMouseEnter={() => setMenuOpen(false)} className="font-brown-sugar text-4xl md:text-5xl tracking-wide normal-case">
               Zeverse
             </Link>
           </div>
@@ -70,16 +64,13 @@ export default function Navbar() {
           {/* Right Controls */}
           <div className="flex items-center justify-end space-x-6 text-xs font-semibold tracking-widest uppercase">
             <button className="hover:opacity-60 transition-opacity">Search</button>
-            <button 
-              onClick={() => setIsCartOpen(true)} 
-              className="hover:opacity-60 transition-opacity cursor-pointer"
-            >
+            <button onClick={() => setIsCartOpen(true)} className="hover:opacity-60 transition-opacity cursor-pointer">
               Bag ({cartCount})
             </button>
           </div>
         </div>
 
-        {/* BROAD EDITORIAL MEGA-MENU BOX */}
+        {/* FULL MATRIX MEGA-MENU SUBBOX */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div
@@ -89,36 +80,35 @@ export default function Navbar() {
               transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
               className="absolute left-0 right-0 top-full bg-[#311B14] text-[#EDE6D8] border-t border-[#EDE6D8]/10 py-16 shadow-xl"
             >
-              <div className="max-w-7xl mx-auto px-6 grid grid-cols-4 gap-12">
+              <div className="max-w-7xl mx-auto px-6 grid grid-cols-12 gap-8">
                 
-                {/* Columns 1 & 2: Broad Category Matrix Layout */}
-                <div className="col-span-2 flex flex-col space-y-4">
-                  <h4 className="text-[10px] tracking-[0.3em] uppercase font-bold text-[#EDE6D8]/40 mb-2">
-                    The Curation Catalog
-                  </h4>
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                {/* Clean Multi-Column Category Feed */}
+                <div className="col-span-8 flex flex-col space-y-4">
+                  <h4 className="text-[10px] tracking-[0.3em] uppercase font-bold text-[#EDE6D8]/40 mb-2">The Dynamic Curation Matrix</h4>
+                  <div className="grid grid-cols-3 gap-x-6 gap-y-5">
                     {CATEGORIES_MATRIX.map((item) => (
                       <Link
                         key={item.name}
                         href={item.path}
                         onClick={() => setMenuOpen(false)}
-                        className="text-sm font-light tracking-wide hover:text-[#EDE6D8]/60 transition-colors block w-max"
+                        className="text-sm font-light tracking-wide hover:text-[#EDE6D8]/60 transition-colors flex items-center space-x-2 group"
                       >
-                        {item.name}
+                        <span>{item.name}</span>
+                        {item.badge && (
+                          <span className={`text-[8px] tracking-normal px-2 py-0.5 rounded-full text-white font-bold normal-case ${item.badgeColor}`}>
+                            {item.badge}
+                          </span>
+                        )}
                       </Link>
                     ))}
                   </div>
                 </div>
 
-                {/* Columns 3 & 4: High-End Visual Promos */}
-                <div className="col-span-2 flex justify-end space-x-6 pr-4">
-                  <div className="relative w-56 aspect-[4/5] bg-[#EDE6D8]/5 rounded-sm overflow-hidden flex flex-col justify-end p-4 border border-[#EDE6D8]/10 group cursor-pointer">
-                    <span className="text-[9px] tracking-widest uppercase font-bold text-[#EDE6D8]/40 mb-1">Seasonal Drop</span>
-                    <span className="text-xs tracking-wide font-light">Fine Gold Selection &rarr;</span>
-                  </div>
-                  <div className="relative w-56 aspect-[4/5] bg-[#EDE6D8]/5 rounded-sm overflow-hidden flex flex-col justify-end p-4 border border-[#EDE6D8]/10 group cursor-pointer">
-                    <span className="text-[9px] tracking-widest uppercase font-bold text-[#EDE6D8]/40 mb-1">Timeless Edit</span>
-                    <span className="text-xs tracking-wide font-light">Heritage Collection &rarr;</span>
+                {/* Promotional Context Block */}
+                <div className="col-span-4 flex justify-end items-center">
+                  <div className="w-full max-w-[280px] aspect-[4/3] bg-[#EDE6D8]/5 rounded-sm border border-[#EDE6D8]/10 p-6 flex flex-col justify-end">
+                    <span className="text-[9px] tracking-[0.2em] font-bold text-[#EDE6D8]/40 uppercase mb-1">New Season</span>
+                    <p className="text-xs font-light text-[#EDE6D8]/80">Explore editorial statement configurations engineered for all identities.</p>
                   </div>
                 </div>
 
