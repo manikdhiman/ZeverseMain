@@ -3,9 +3,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
-// Load Brown Sugar locally
+// Update the source to point exactly to the copied woff2 file name
 const brownSugar = localFont({
-  src: "./fonts/BrownSugar.ttf", // Adjust extension (.ttf/.woff2) to match your file exactly
+  src: "./fonts/Brown-Sugar-Regular.woff2",
   variable: "--font-brown-sugar",
 });
 
