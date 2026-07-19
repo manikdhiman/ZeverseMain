@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={brownSugar.variable}>
+    <html lang="en" className={brownSugar.variable} suppressHydrationWarning>
       <body>
         <Navbar />
         <main>{children}</main>
@@ -29,3 +29,5 @@ export default function RootLayout({
     </html>
   );
 }
+ 
+  
