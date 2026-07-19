@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CartDrawer from "@/components/CartDrawer";
+import { CartProvider } from "@/utils/CartContext";
 
 const brownSugar = localFont({
   src: "./fonts/Brown-Sugar-Regular.woff2",
@@ -22,12 +24,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={brownSugar.variable} suppressHydrationWarning>
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <CartProvider>
+          <Navbar />
+          <main>{children}</main>
+          <CartDrawer />
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
 }
- 
-  
