@@ -35,26 +35,24 @@ export default function Navbar() {
       transition={{ duration: 0.35, ease: "easeInOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
-          ? "bg-[#311B14] text-[#EDE6D8] shadow-lg border-b border-[#EDE6D8]/10 py-3" 
-          : "bg-transparent text-[#311B14] py-5"
+          ? "bg-[#311B14] text-[#EDE6D8] shadow-lg border-b border-[#EDE6D8]/10 py-2" 
+          : "bg-transparent text-[#311B14] py-6"
       }`}
     >
-      {/* 3-Column Grid Layout to perfectly center the logo */}
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-3 items-center">
         
-        {/* Left Side: Navigation Links */}
+        {/* Left Side: Secondary Navigation */}
         <div className="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-widest uppercase">
           <Link href="/collections" className="hover:opacity-60 transition-opacity">Collections</Link>
-          <Link href="/new-in" className="hover:opacity-60 transition-opacity">New In</Link>
+          <Link href="/new-in" className="hover:opacity-60 transition-opacity">Shop All</Link>
         </div>
-        {/* Mobile fallback spacing if links hidden */}
         <div className="md:hidden"></div>
 
-        {/* Center: Hero Branding (Huge attention grabber) */}
+        {/* Center: Massive Luxury Branding Focus */}
         <div className="flex justify-center text-center">
           <Link 
             href="/" 
-            className="font-brown-sugar text-4xl md:text-5xl tracking-normal normal-case transition-transform duration-300 hover:scale-102"
+            className="font-brown-sugar text-5xl md:text-7xl tracking-wide normal-case transition-all duration-300 hover:scale-105"
           >
             Zeverse
           </Link>
