@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import BrandPromise from "@/components/BrandPromise";
+import MaterialShowcase from "@/components/MaterialShowcase";
 import ProductGrid from "@/components/ProductGrid";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <>
       <Hero />
       <BrandPromise />
+      <MaterialShowcase />
       <ProductGrid />
     </>
   );
