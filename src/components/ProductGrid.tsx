@@ -7,25 +7,23 @@ import { useCart } from "@/utils/CartContext";
 import { supabase } from "@/utils/supabase";
 
 interface Product {
-  id: string; // Live database UUID strings
+  id: string; 
   name: string;
   price: number;
   collection: string;
-  image_url: string;           -- Primary Studio Shot
-  secondary_image_url?: string; -- Brand New Lifestyle Shot Column!
+  image_url: string;           
+  secondary_image_url?: string; 
   description?: string;
 }
 
 export default function ProductGrid() {
   const [products, setProducts] = useState<Product[]>([]);
   const [visibleCount, setVisibleCount] = useState(16);
-  const [activeTab, setActiveTab] = useState("ALL");
   const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   
   const { addToCart } = useCart();
 
-  // Load everything from Supabase dynamically
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -45,16 +43,15 @@ export default function ProductGrid() {
     fetchProducts();
   }, []);
 
-  const filteredProducts = activeTab === "ALL" 
-    ? products 
-    : products.filter(p => p.collection?.toLowerCase() === activeTab.toLowerCase());
-
-  const currentItems = filteredProducts.slice(0, visibleCount);
+  // Show all products sequentially for a royal, uncompromised showroom aesthetic
+  const currentItems = products.slice(0, visibleCount);
 
   if (loading) {
     return (
       <div className="min-h-[400px] flex items-center justify-center bg-[#EDE6D8]">
-        <p className="text-xs uppercase tracking-widest text-[#311B14] opacity-60 animate-pulse">Loading Zeverse Vault...</p>
+        <p className="text-xs uppercase tracking-widest text-[#311B14] opacity-60 animate-pulse">
+          Opening the Zeverse Vault...
+        </p>
       </div>
     );
   }
@@ -62,32 +59,21 @@ export default function ProductGrid() {
   return (
     <section className="max-w-7xl mx-auto px-6 py-24 bg-[#EDE6D8]">
       
-      {/* Title & Collection Headers */}
-      <div className="text-center mb-16">
-        <h2 className="text-xs uppercase tracking-[0.3em] text-[#311B14] font-bold opacity-60 mb-3">The Vault</h2>
-        <h3 className="font-brown-sugar text-4xl md:text-5xl text-[#311B14] mb-8">Explore Zeverse Masterpieces</h3>
-        
-        <div className="flex flex-wrap justify-center gap-4 text-xs tracking-widest uppercase font-semibold">
-          {["ALL", "Rings", "Earrings", "Necklaces", "Bracelets"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => { setActiveTab(tab); setVisibleCount(16); }}
-              className={`px-4 py-2 border border-[#311B14]/10 transition-all duration-300 rounded-sm cursor-pointer ${
-                activeTab === tab ? "bg-[#311B14] text-[#EDE6D8]" : "text-[#311B14] hover:bg-[#311B14]/5"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+      {/* Royal Minimalist Header Space */}
+      <div className="text-center mb-20">
+        <h2 className="text-xs uppercase tracking-[0.4em] text-[#311B14] font-bold opacity-40 mb-3">
+          The Curation
+        </h2>
+        <h3 className="font-brown-sugar text-5xl md:text-6xl text-[#311B14] tracking-wide">
+          Masterpieces
+        </h3>
       </div>
 
-      {/* Grid Display Container */}
+      {/* Clean Grid Display Container */}
       <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
         <AnimatePresence mode="popLayout">
           {currentItems.map((product) => {
             const isHovered = hoveredItemId === product.id;
-            // Only attempt cross-dissolve if a secondary image actually exists in the row
             const hasSecondaryImg = !!product.secondary_image_url;
 
             return (
@@ -98,10 +84,8 @@ export default function ProductGrid() {
                 onMouseLeave={() => setHoveredItemId(null)}
                 className="group cursor-pointer flex flex-col relative"
               >
-                {/* Image Sandwich Frame Workspace */}
+                {/* Image Frame */}
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#311B14]/5 mb-4 rounded-sm">
-                  
-                  {/* Primary Studio Image */}
                   <motion.img
                     src={product.image_url}
                     alt={product.name}
@@ -114,7 +98,6 @@ export default function ProductGrid() {
                     loading="lazy"
                   />
 
-                  {/* Secondary Lifestyle Image (Renders dynamically if present in DB) */}
                   {hasSecondaryImg && (
                     <motion.img
                       src={product.secondary_image_url}
@@ -129,10 +112,9 @@ export default function ProductGrid() {
                       loading="lazy"
                     />
                   )}
-                  
                 </div>
 
-                {/* Typography Metadata & Direct Actions */}
+                {/* Typography Metadata & Dynamic Action */}
                 <div className="flex flex-col text-left space-y-2">
                   <div>
                     <span className="text-[10px] tracking-widest uppercase text-[#311B14]/50 font-bold mb-1 block">
@@ -169,10 +151,10 @@ export default function ProductGrid() {
       </motion.div>
 
       {/* Pagination View Trigger */}
-      {visibleCount < filteredProducts.length && (
+      {visibleCount < products.length && (
         <div className="w-full flex justify-center mt-20">
           <button
-            onClick={() => setVisibleCount((prev) => Math.min(prev + 24, filteredProducts.length))}
+            onClick={() => setVisibleCount((prev) => Math.min(prev + 16, products.length))}
             className="px-12 py-4 border border-[#311B14] text-[#311B14] uppercase text-xs tracking-widest font-bold hover:bg-[#311B14] hover:text-[#EDE6D8] transition-colors duration-400 rounded-sm cursor-pointer"
           >
             Explore More Pieces
