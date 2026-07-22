@@ -1,19 +1,22 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Plus_Jakarta_Sans, Cinzel } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import CartDrawer from "@/components/CartDrawer";
-import { CartProvider } from "@/utils/CartContext";
 
-const brownSugar = localFont({
-  src: "./fonts/Brown-Sugar-Regular.woff2",
-  variable: "--font-brown-sugar",
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  variable: "--font-cinzel",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Zeverse | Luxury Jewelry",
-  description: "Out of this world fine jewelry designed for the modern era.",
+  title: "Zeverse | High Jewellery Curation",
+  description: "Modern luxury handcrafted jewellery.",
 };
 
 export default function RootLayout({
@@ -22,14 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={brownSugar.variable} suppressHydrationWarning>
-      <body>
-        <CartProvider>
-          <Navbar />
-          <main>{children}</main>
-          <CartDrawer />
-          <Footer />
-        </CartProvider>
+    <html lang="en" className={`${jakarta.variable} ${cinzel.variable}`}>
+      <body className="font-sans bg-[#EDE6D8] text-[#311B14] antialiased selection:bg-[#311B14] selection:text-[#EDE6D8]">
+        {children}
       </body>
     </html>
   );

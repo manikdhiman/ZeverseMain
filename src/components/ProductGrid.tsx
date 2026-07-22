@@ -35,7 +35,7 @@ export default function ProductGrid() {
         if (error) throw error;
         if (data) setProducts(data);
       } catch (err) {
-        console.error("Error linking portfolio rows:", err);
+        console.error("Error linking database rows:", err);
       } finally {
         setLoading(false);
       }
@@ -48,7 +48,9 @@ export default function ProductGrid() {
   if (loading) {
     return (
       <div className="min-h-[400px] flex items-center justify-center bg-[#EDE6D8]">
-        <p className="text-xs uppercase tracking-widest text-[#311B14] opacity-60 animate-pulse">Opening Zeverse Showroom...</p>
+        <p className="text-xs uppercase tracking-widest text-[#311B14] opacity-60 animate-pulse font-cinzel">
+          Opening Zeverse Showroom...
+        </p>
       </div>
     );
   }
@@ -56,18 +58,22 @@ export default function ProductGrid() {
   return (
     <section className="max-w-7xl mx-auto px-6 py-24 bg-[#EDE6D8]">
       
+      {/* Luxury Heading Stack */}
       <div className="text-center mb-20">
-        <h2 className="text-xs uppercase tracking-[0.4em] text-[#311B14] font-bold opacity-40 mb-3">The Curation</h2>
-        <h3 className="font-brown-sugar text-5xl md:text-6xl text-[#311B14] tracking-wide">Masterpieces</h3>
+        <h2 className="font-cinzel text-xs uppercase tracking-[0.4em] text-[#311B14] font-semibold opacity-60 mb-3">
+          The Curation
+        </h2>
+        <h3 className="font-brown-sugar text-5xl md:text-6xl text-[#311B14] tracking-wide">
+          Masterpieces
+        </h3>
       </div>
 
+      {/* Grid Canvas */}
       <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
         <AnimatePresence mode="popLayout">
           {currentItems.map((product) => {
             const isHovered = hoveredItemId === product.id;
             
-            // AUTOMATIC FALLBACK PROTECTION: If your database column is null/empty for a specific row,
-            // we use a premium replacement image URL so the hover effect NEVER breaks or turns blank!
             const finalSecondaryImage = product.secondary_image_url && product.secondary_image_url.trim() !== ""
               ? product.secondary_image_url
               : "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600"; 
@@ -80,10 +86,8 @@ export default function ProductGrid() {
                 onMouseLeave={() => setHoveredItemId(null)}
                 className="group cursor-pointer flex flex-col relative"
               >
-                {/* 2-Image Presentation Matrix Frame */}
+                {/* Product Image Frame */}
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#311B14]/5 mb-4 rounded-sm">
-                  
-                  {/* Primary Database Product Image */}
                   <motion.img
                     src={product.image_url}
                     alt={product.name}
@@ -96,7 +100,6 @@ export default function ProductGrid() {
                     loading="lazy"
                   />
 
-                  {/* Secondary Hover Image (Guaranteed to render smoothly via fallback) */}
                   <motion.img
                     src={finalSecondaryImage}
                     alt={`${product.name} editorial look`}
@@ -109,16 +112,15 @@ export default function ProductGrid() {
                     className="absolute inset-0 w-full h-full object-cover object-center"
                     loading="lazy"
                   />
-                  
                 </div>
 
-                {/* Metadata Stack & Dynamic Drawer Interceptor */}
+                {/* Modern Ultra-Readable Typography Info */}
                 <div className="flex flex-col text-left space-y-2">
                   <div>
-                    <span className="text-[10px] tracking-widest uppercase text-[#311B14]/50 font-bold mb-1 block">
+                    <span className="text-[10px] tracking-widest uppercase text-[#311B14]/50 font-bold mb-1 block font-cinzel">
                       {product.collection || "Jewellery"}
                     </span>
-                    <h4 className="text-sm font-light tracking-wide text-[#311B14] mb-1 opacity-90 group-hover:opacity-70 transition-opacity">
+                    <h4 className="text-sm font-normal tracking-wide text-[#311B14] mb-1 opacity-90 group-hover:opacity-70 transition-opacity">
                       {product.name}
                     </h4>
                     <p className="text-sm font-semibold text-[#311B14]">
@@ -137,7 +139,7 @@ export default function ProductGrid() {
                         img: product.image_url,
                       });
                     }}
-                    className="w-full bg-[#311B14] text-[#EDE6D8] py-2.5 text-[11px] uppercase font-bold tracking-widest text-center rounded-sm hover:opacity-90 transition-opacity mt-2 cursor-pointer shadow-sm"
+                    className="w-full bg-[#311B14] text-[#EDE6D8] py-2.5 text-[11px] uppercase font-semibold tracking-widest text-center rounded-sm hover:opacity-90 transition-opacity mt-2 cursor-pointer shadow-sm"
                   >
                     Add To Cart &rarr;
                   </button>
