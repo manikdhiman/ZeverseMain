@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Cinzel } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/utils/CartContext"; // Import CartProvider
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -27,7 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakarta.variable} ${cinzel.variable}`}>
       <body className="font-sans bg-[#EDE6D8] text-[#311B14] antialiased selection:bg-[#311B14] selection:text-[#EDE6D8]">
-        {children}
+        {/* WRAP CHILDREN HERE */}
+        <CartProvider>
+          {children}
+        </CartProvider>
       </body>
     </html>
   );
