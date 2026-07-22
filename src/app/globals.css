@@ -1,14 +1,13 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --font-sans: var(--font-jakarta), system-ui, -apple-system, sans-serif;
-  }
+@theme {
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-cinzel: var(--font-cinzel), serif;
+}
 
-  body {
-    font-family: var(--font-sans);
-    letter-spacing: -0.01em;
-  }
+body {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 .font-brown-sugar {

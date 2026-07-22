@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { useCart } from "@/utils/CartContext";
 
-// Complete collection matrix directly from your high-end design reference
 const CATEGORIES_MATRIX = [
   { name: "New Arrivals", path: "/collections/new-arrivals" },
   { name: "Best Seller", path: "/collections/best-seller" },
@@ -36,13 +35,13 @@ export default function Navbar() {
     <>
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled || menuOpen ? "bg-[#311B14] text-[#EDE6D8] shadow-lg py-4" : "bg-transparent text-[#311B14] py-6"
+          scrolled || menuOpen ? "bg-[#311B14] text-[#EDE6D8] shadow-lg py-4" : "bg-[#EDE6D8] text-[#311B14] py-6"
         }`}
         onMouseLeave={() => setMenuOpen(false)}
       >
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-3 items-center">
           
-          {/* Left Navigation Matrix Trigger */}
+          {/* Left Navigation */}
           <div className="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-widest uppercase">
             <button 
               onMouseEnter={() => setMenuOpen(true)}
@@ -56,7 +55,7 @@ export default function Navbar() {
 
           {/* Center Logo */}
           <div className="flex justify-center text-center">
-            <Link href="/" onMouseEnter={() => setMenuOpen(false)} className="font-brown-sugar text-4xl md:text-5xl tracking-wide normal-case">
+            <Link href="/" onMouseEnter={() => setMenuOpen(false)} className="font-brown-sugar text-4xl md:text-5xl tracking-wide normal-case select-none">
               Zeverse
             </Link>
           </div>
@@ -64,38 +63,38 @@ export default function Navbar() {
           {/* Right Controls */}
           <div className="flex items-center justify-end space-x-6 text-xs font-semibold tracking-widest uppercase">
             <button className="hover:opacity-60 transition-opacity">Search</button>
-            <button onClick={() => setIsCartOpen(true)} className="hover:opacity-60 transition-opacity cursor-pointer">
+            <button onClick={() => setIsCartOpen(true)} className="hover:opacity-60 transition-opacity cursor-pointer font-bold">
               Bag ({cartCount})
             </button>
           </div>
         </div>
 
-        {/* FULL MATRIX MEGA-MENU SUBBOX */}
+        {/* MEGA-MENU SUB-BOX */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-              className="absolute left-0 right-0 top-full bg-[#311B14] text-[#EDE6D8] border-t border-[#EDE6D8]/10 py-16 shadow-xl"
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="absolute left-0 right-0 top-full bg-[#311B14] text-[#EDE6D8] border-t border-[#EDE6D8]/10 py-12 shadow-2xl"
             >
               <div className="max-w-7xl mx-auto px-6 grid grid-cols-12 gap-8">
-                
-                {/* Clean Multi-Column Category Feed */}
                 <div className="col-span-8 flex flex-col space-y-4">
-                  <h4 className="text-[10px] tracking-[0.3em] uppercase font-bold text-[#EDE6D8]/40 mb-2">The Dynamic Curation Matrix</h4>
-                  <div className="grid grid-cols-3 gap-x-6 gap-y-5">
+                  <h4 className="font-cinzel text-[10px] tracking-[0.3em] uppercase font-bold text-[#EDE6D8]/40 mb-2">
+                    The Curation Matrix
+                  </h4>
+                  <div className="grid grid-cols-3 gap-x-6 gap-y-4">
                     {CATEGORIES_MATRIX.map((item) => (
                       <Link
                         key={item.name}
                         href={item.path}
                         onClick={() => setMenuOpen(false)}
-                        className="text-sm font-light tracking-wide hover:text-[#EDE6D8]/60 transition-colors flex items-center space-x-2 group"
+                        className="text-xs font-light tracking-wide hover:text-[#EDE6D8]/60 transition-colors flex items-center space-x-2"
                       >
                         <span>{item.name}</span>
                         {item.badge && (
-                          <span className={`text-[8px] tracking-normal px-2 py-0.5 rounded-full text-white font-bold normal-case ${item.badgeColor}`}>
+                          <span className={`text-[8px] px-2 py-0.5 rounded-full text-white font-bold ${item.badgeColor}`}>
                             {item.badge}
                           </span>
                         )}
@@ -104,14 +103,12 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                {/* Promotional Context Block */}
                 <div className="col-span-4 flex justify-end items-center">
                   <div className="w-full max-w-[280px] aspect-[4/3] bg-[#EDE6D8]/5 rounded-sm border border-[#EDE6D8]/10 p-6 flex flex-col justify-end">
-                    <span className="text-[9px] tracking-[0.2em] font-bold text-[#EDE6D8]/40 uppercase mb-1">New Season</span>
-                    <p className="text-xs font-light text-[#EDE6D8]/80">Explore editorial statement configurations engineered for all identities.</p>
+                    <span className="font-cinzel text-[9px] tracking-[0.2em] font-bold text-[#EDE6D8]/40 uppercase mb-1">New Season</span>
+                    <p className="text-xs font-light text-[#EDE6D8]/80">Explore statement configurations engineered for all identities.</p>
                   </div>
                 </div>
-
               </div>
             </motion.div>
           )}
