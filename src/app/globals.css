@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: var(--font-jakarta), system-ui, sans-serif;
-  --font-cinzel: var(--font-cinzel), serif;
+/* 1. YOUR ORIGINAL LOGO FONT - UNTOUCHED */
+@font-face {
+  font-family: "BrownSugar";
+  src: url("/fonts/BrownSugar.ttf") format("truetype"),
+       url("/fonts/BrownSugar.woff2") format("woff2"),
+       url("/fonts/BrownSugar.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-body {
-  font-family: var(--font-jakarta), system-ui, sans-serif;
-  letter-spacing: -0.01em;
-}
-
+/* 2. LOGO & UTILITY CLASSES */
 .font-brown-sugar {
-  font-family: "BrownSugar", serif;
+  font-family: "BrownSugar", serif !important;
 }
 
-.font-cinzel {
-  font-family: var(--font-cinzel), serif;
+/* 3. GENERAL BODY TEXT ONLY (Overrides standard Arial/Times) */
+body {
+  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.01em;
 }

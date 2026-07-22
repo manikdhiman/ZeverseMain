@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Cinzel } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/utils/CartContext";
 import Navbar from "@/components/Navbar";
@@ -7,12 +7,6 @@ import Navbar from "@/components/Navbar";
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
-  display: "swap",
-});
-
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  variable: "--font-cinzel",
   display: "swap",
 });
 
@@ -27,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${cinzel.variable}`}>
+    <html lang="en" className={jakarta.variable}>
       <body className="bg-[#EDE6D8] text-[#311B14] antialiased selection:bg-[#311B14] selection:text-[#EDE6D8]">
         <CartProvider>
           <Navbar />
