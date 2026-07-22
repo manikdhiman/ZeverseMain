@@ -6,16 +6,18 @@ import Link from "next/link";
 import { useCart } from "@/utils/CartContext";
 
 const CATEGORIES_MATRIX = [
-  { name: "New Arrivals", path: "/collections/new-arrivals" },
-  { name: "Best Seller", path: "/collections/best-seller" },
-  { name: "Fine Silver", path: "/collections/fine-silver" },
-  { name: "9KT Fine Gold", path: "/collections/9kt-gold", badge: "Luxe", badgeColor: "bg-[#D4AF37]" },
-  { name: "Emily In Paris", path: "/collections/emily-in-paris", badge: "à la mode", badgeColor: "bg-blue-500" },
-  { name: "Shraddha's Favourite", path: "/collections/shraddhas-favourite" },
-  { name: "Demifine ® Jewellery", path: "/collections/demifine" },
-  { name: "Gifting", path: "/collections/gifting" },
-  { name: "Women's Edit", path: "/collections/women" },
-  { name: "Men's Curation", path: "/collections/men" }
+  { name: "New Launches", path: "/collections/new-launches", badge: "New", badgeColor: "bg-emerald-600" },
+  { name: "Bestseller", path: "/collections/bestseller", badge: "Popular", badgeColor: "bg-[#D4AF37]" },
+  { name: "Rings", path: "/collections/rings" },
+  { name: "Neckpiece", path: "/collections/neckpiece" },
+  { name: "Cuffs and Bracelets", path: "/collections/cuffs-bracelets" },
+  { name: "Western Earrings", path: "/collections/western-earrings" },
+  { name: "Korean Earrings", path: "/collections/korean-earrings" },
+  { name: "Anti Tarnish Earrings", path: "/collections/anti-tarnish-earrings", badge: "Luxe", badgeColor: "bg-amber-600" },
+  { name: "AD Earrings", path: "/collections/ad-earrings" },
+  { name: "Quirky Earrings", path: "/collections/quirky-earrings" },
+  { name: "Traditional Earrings", path: "/collections/traditional-earrings" },
+  { name: "Heritage Jewellery", path: "/collections/heritage-jewellery" }
 ];
 
 export default function Navbar() {
@@ -41,7 +43,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-3 items-center">
           
-          {/* Left Navigation */}
+          {/* Left Navigation Matrix */}
           <div className="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-widest uppercase">
             <button 
               onMouseEnter={() => setMenuOpen(true)}
@@ -53,10 +55,14 @@ export default function Navbar() {
           </div>
           <div className="md:hidden"></div>
 
-          {/* Center Logo */}
+          {/* Center Royal Logo (Untouched BrownSugar) */}
           <div className="flex justify-center text-center">
-            <Link href="/" onMouseEnter={() => setMenuOpen(false)} className="font-brown-sugar text-4xl md:text-5xl tracking-wide normal-case select-none">
-              Zeverse
+            <Link 
+              href="/" 
+              onMouseEnter={() => setMenuOpen(false)} 
+              className="font-brown-sugar text-3xl md:text-4xl tracking-wider uppercase select-none"
+            >
+              ZEVERSE
             </Link>
           </div>
 
@@ -77,22 +83,24 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="absolute left-0 right-0 top-full bg-[#311B14] text-[#EDE6D8] border-t border-[#EDE6D8]/10 py-12 shadow-2xl"
+              className="absolute left-0 right-0 top-full bg-[#311B14] text-[#EDE6D8] border-t border-[#EDE6D8]/10 py-10 shadow-2xl"
             >
               <div className="max-w-7xl mx-auto px-6 grid grid-cols-12 gap-8">
                 <div className="col-span-8 flex flex-col space-y-4">
-                  <h4 className="font-cinzel text-[10px] tracking-[0.3em] uppercase font-bold text-[#EDE6D8]/40 mb-2">
+                  <h4 className="text-[10px] tracking-[0.3em] uppercase font-bold text-[#EDE6D8]/40 mb-2">
                     The Curation Matrix
                   </h4>
-                  <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                  
+                  {/* Category Matrix Grid */}
+                  <div className="grid grid-cols-3 gap-x-6 gap-y-3.5 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
                     {CATEGORIES_MATRIX.map((item) => (
                       <Link
                         key={item.name}
                         href={item.path}
                         onClick={() => setMenuOpen(false)}
-                        className="text-xs font-light tracking-wide hover:text-[#EDE6D8]/60 transition-colors flex items-center space-x-2"
+                        className="text-xs font-light tracking-wide hover:text-[#EDE6D8]/60 transition-colors flex items-center space-x-2 py-0.5"
                       >
-                        <span>{item.name}</span>
+                        <span className="uppercase text-[11px] tracking-wider">{item.name}</span>
                         {item.badge && (
                           <span className={`text-[8px] px-2 py-0.5 rounded-full text-white font-bold ${item.badgeColor}`}>
                             {item.badge}
@@ -105,8 +113,8 @@ export default function Navbar() {
 
                 <div className="col-span-4 flex justify-end items-center">
                   <div className="w-full max-w-[280px] aspect-[4/3] bg-[#EDE6D8]/5 rounded-sm border border-[#EDE6D8]/10 p-6 flex flex-col justify-end">
-                    <span className="font-cinzel text-[9px] tracking-[0.2em] font-bold text-[#EDE6D8]/40 uppercase mb-1">New Season</span>
-                    <p className="text-xs font-light text-[#EDE6D8]/80">Explore statement configurations engineered for all identities.</p>
+                    <span className="text-[9px] tracking-[0.2em] font-bold text-[#EDE6D8]/40 uppercase mb-1">New Collection</span>
+                    <p className="text-xs font-light text-[#EDE6D8]/80">Handcrafted statement configurations engineered for all identities.</p>
                   </div>
                 </div>
               </div>

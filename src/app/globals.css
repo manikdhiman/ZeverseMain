@@ -1,23 +1,36 @@
 @import "tailwindcss";
 
-/* 1. YOUR ORIGINAL LOGO FONT - UNTOUCHED */
-@font-face {
-  font-family: "BrownSugar";
-  src: url("/fonts/BrownSugar.ttf") format("truetype"),
-       url("/fonts/BrownSugar.woff2") format("woff2"),
-       url("/fonts/BrownSugar.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+@theme {
+  --font-sans: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  --font-cinzel: var(--font-cinzel), Georgia, serif;
+  --font-brown-sugar: var(--font-brown-sugar), serif;
 }
 
-/* 2. LOGO & UTILITY CLASSES */
-.font-brown-sugar {
-  font-family: "BrownSugar", serif !important;
-}
-
-/* 3. GENERAL BODY TEXT ONLY (Overrides standard Arial/Times) */
-body {
-  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+/* 1. GLOBAL DEFAULT TEXT (Upgrades all body text, links, and buttons from basic Arial) */
+body, button, input, p, span, a, li {
+  font-family: var(--font-jakarta), system-ui, -apple-system, sans-serif !important;
   letter-spacing: -0.01em;
+}
+
+body {
+  background-color: #EDE6D8 !important;
+  color: #311B14 !important;
+}
+
+/* 2. ELEGANT SERIF FOR HEADINGS & SUB-NAVIGATION */
+h1, h2, h3, h4, h5, h6, .font-cinzel {
+  font-family: var(--font-cinzel), serif !important;
+  letter-spacing: 0.04em;
+}
+
+/* 3. STRICT UNTOUCHED LOGO UTILITY (BrownSugar) */
+.font-brown-sugar,
+.font-brown-sugar * {
+  font-family: var(--font-brown-sugar), serif !important;
+  text-transform: uppercase !important;
+}
+
+/* 4. Luxury Button Styling */
+button {
+  letter-spacing: 0.12em;
 }

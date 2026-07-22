@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { brownSugar, jakarta, cinzel } from "./fonts";
 import { CartProvider } from "@/utils/CartContext";
 import Navbar from "@/components/Navbar";
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
-  display: "swap",
-});
+import CartDrawer from "@/components/CartDrawer";
 
 export const metadata: Metadata = {
-  title: "Zeverse | High Jewellery Curation",
+  title: "ZEVERSE | High Jewellery Curation",
   description: "Modern luxury handcrafted jewellery.",
 };
 
@@ -21,11 +16,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={jakarta.variable}>
-      <body className="bg-[#EDE6D8] text-[#311B14] antialiased selection:bg-[#311B14] selection:text-[#EDE6D8]">
+    <html 
+      lang="en" 
+      className={`${brownSugar.variable} ${jakarta.variable} ${cinzel.variable}`} 
+      suppressHydrationWarning
+    >
+      <body className="bg-[#EDE6D8] text-[#311B14] font-sans antialiased" suppressHydrationWarning>
         <CartProvider>
           <Navbar />
-          <main className="pt-24">{children}</main>
+          <CartDrawer />
+          <main className="pt-20 md:pt-24">{children}</main>
         </CartProvider>
       </body>
     </html>
